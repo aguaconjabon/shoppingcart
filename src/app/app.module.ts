@@ -9,6 +9,8 @@ import { BodyComponent } from './components/body/body.component';
 import { NavigatorHeaderComponent } from './components/navigator-header/navigator-header.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductService } from './service/product/product.service';
+import { HomeComponent } from './pages/home/home.component';
+import { ShoppingcardComponent } from './pages/shoppingcard/shoppingcard.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { ProductService } from './service/product/product.service';
     ProductComponent,
     NavigatorHeaderComponent,
     BodyComponent,
+    HomeComponent,
+    ShoppingcardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [ProductService, ShoppingcartService],

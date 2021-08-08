@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Product } from '../../models/product.model';
+import { ProductModel } from '../../models/product.model';
 import { ShoppingcartService } from '../../service/shoppingCart/shoppingcart.service';
 
 @Component({
@@ -10,12 +10,11 @@ import { ShoppingcartService } from '../../service/shoppingCart/shoppingcart.ser
 })
 export class ProductComponent implements OnInit {
   @Input()
-  product: Product;
+  product: ProductModel;
 
-  item: Product;
+  item: ProductModel;
   constructor(private shoppingcartService: ShoppingcartService) {}
   ngOnInit(): void {
-    console.log('el producto', this.product);
     this.item = this.product;
     this.countSelected();
   }
@@ -29,9 +28,25 @@ export class ProductComponent implements OnInit {
     this.shoppingcartService.shoppingcartDataBehaviourSubject.next(products);
   }
 
+  deleteProduct() {
+    let products =
+      this.shoppingcartService.shoppingcartDataBehaviourSubject.getValue();
+
+    if (products) {
+      products.forEach((value: ProductModel, index: number) => {
+        if (this.item.id == value.id) {
+          products.splice(index, 1);
+          return;
+        }
+      });
+
+      this.shoppingcartService.shoppingcartDataBehaviourSubject.next(products);
+    }
+  }
+
   countSelected() {
     this.shoppingcartService.shoppingcartDataBehaviourSubject.subscribe(
-      (shoppingcartService: [Product]) => {
+      (shoppingcartService: [ProductModel]) => {
         this.selectedCount = 0;
         shoppingcartService.forEach((product) => {
           if (this.item.id == product.id) {

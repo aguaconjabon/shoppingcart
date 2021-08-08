@@ -12,6 +12,7 @@
           <div class="col-md-12">
               <button  type="button text-center" (click)="addProduct()" class="btn btn-primary margin-button">ADD al carrito</button> 
               <button type="button text-center" class="btn btn-info margin-button">Comprar</button>
+              <button  *ngIf="selectedCount" type="button text-center" (click)="deleteProduct()" class="btn btn-danger margin-button">remover un elemento</button> 
           </div>
           
       </div>

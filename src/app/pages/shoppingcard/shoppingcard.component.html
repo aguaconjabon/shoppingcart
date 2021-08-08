@@ -1,0 +1,71 @@
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Carro de compras
+
+      </h3>
+    </div>
+    <div class="panel-body">
+      
+      <ul *ngIf="shoppingcardProduct.length > 0" class="list-group">
+        <li   class="list-group-item" *ngFor="let pro of shoppingcardProduct">
+          <span class="badge">Precipo por cantidad {{pro.count * pro.product.price  | currency:'CLP'}}</span>
+          <span class="badge">cantidad {{pro.count}}</span>
+          <span class="badge brand" > {{pro.product.brand}}</span>
+          
+          Producto: {{pro.product.description}}   <strong>precio Unidad: {{pro.product.price | currency:'CLP'}}  </strong> 
+        </li>
+      </ul>
+
+      <ul *ngIf="messageDiscount" class="list-group">
+
+        <li   class="list-group-item" >
+
+
+          <div *ngIf="shoppingcardProduct.length > 0" class="alert alert-info" role="alert">
+            {{messageDiscount}}
+          </div>
+          
+        </li>
+
+      </ul>
+
+
+      <ul *ngIf="shoppingcardProduct.length == 0" class="list-group">
+
+        <li   class="list-group-item" >
+          <div  class="alert alert-primary" role="alert">
+           Nada en el carrito
+          </div>
+          
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h3 class="panel-title">Saldo de compra Actual
+
+      </h3>
+    </div>
+
+    <div class="panel-body">
+
+      <ul  class="list-group">
+
+        <li   class="list-group-item" >
+          Precio total:  {{totalAmmount | currency:'CLP'}}
+        </li>
+
+        <li  *ngIf="discountApply > 0" class="list-group-item" >
+          Descuento:  {{discountApply | currency:'CLP'}}
+        </li>
+        <li  *ngIf="discountApply > 0" class="list-group-item" >
+         <strong> Precio total con Descuento:  {{totalAmmount  - discountApply | currency:'CLP'}}</strong>
+        </li>
+      </ul>
+
+    </div>
+  </div>

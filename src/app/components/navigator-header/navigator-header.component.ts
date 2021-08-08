@@ -1,6 +1,7 @@
-import { Product } from 'src/app/models/product.model';
+import { ProductModel } from 'src/app/models/product.model';
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ShoppingcartService } from '../../service/shoppingCart/shoppingcart.service';
 
@@ -12,14 +13,16 @@ import { ShoppingcartService } from '../../service/shoppingCart/shoppingcart.ser
 export class NavigatorHeaderComponent implements OnInit {
   productCount = 0;
   totalAmmout: number;
-  constructor(private shoppingcartService: ShoppingcartService) {}
+  constructor(
+    private shoppingcartService: ShoppingcartService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.shoppingcartService.shoppingcartDataBehaviourSubject.subscribe(
-      (shoppingcartService: [Product]) => {
+      (shoppingcartService: [ProductModel]) => {
         this.totalAmmout = 0;
         if (shoppingcartService) {
-          console.log('Count product');
           this.productCount = shoppingcartService.length;
 
           shoppingcartService.forEach((element) => {
@@ -32,5 +35,13 @@ export class NavigatorHeaderComponent implements OnInit {
 
   clearShoppingCart() {
     this.shoppingcartService.shoppingcartDataBehaviourSubject.next([]);
+  }
+
+  goShoppingCart() {
+    this.router.navigate(['/shoppingcard', {}]);
+  }
+
+  goHome() {
+    this.router.navigate(['/home', {}]);
   }
 }

@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 
-import { Product } from '../../models/product.model';
+import { ProductModel } from '../../models/product.model';
 
 /**
  * Clase inyectable para el manejo de datos de loading
@@ -14,11 +14,12 @@ import { Product } from '../../models/product.model';
 })
 @Injectable()
 export class ShoppingcartService {
-  public shoppingcartDataBehaviourSubject: BehaviorSubject<Array<Product>> =
-    new BehaviorSubject<Array<Product>>([]);
+  public shoppingcartDataBehaviourSubject: BehaviorSubject<
+    Array<ProductModel>
+  > = new BehaviorSubject<Array<ProductModel>>([]);
 
-  public readonly timerObs: Observable<Array<Product>> =
+  public readonly timerObs: Observable<Array<ProductModel>> =
     (this.shoppingcartDataBehaviourSubject = new BehaviorSubject<
-      Array<Product>
+      Array<ProductModel>
     >([]));
 }

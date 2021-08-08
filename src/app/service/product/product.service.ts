@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Product } from '../../models/product.model';
+import { DiscountModel } from '../../models/discount.model';
+import { ProductModel } from '../../models/product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,10 @@ export class ProductService {
 
   getProduct() {
     // now returns an Observable of Config
-    return this.http.get<[Product]>(this.configUrl);
+    return this.http.get<[ProductModel]>(this.configUrl);
+  }
+  // now returns an Observable of Config
+  getDiscount() {
+    return this.http.get<[DiscountModel]>(this.configUrl + 'discount');
   }
 }
