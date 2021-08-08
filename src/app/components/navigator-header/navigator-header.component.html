@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#">Inicio</a></li>
+    <li role="presentation"><a href="#">Productos seleccionados {{productCount}}</a></li>
+    <li role="presentation"><a href="#">Carrito</a></li>
+    <li role="presentation"><a href="#" (click)="clearShoppingCart()">Limpiar Carrito</a></li>
+    <li role="presentation"><a href="#" (click)="clearShoppingCart()">Monto total a pagar: {{totalAmmout | currency:'CLP' }}</a></li>
+  </ul>
