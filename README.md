@@ -3,13 +3,13 @@
 primero deben generar la imagen docker con el archivo Docker file que se encuentar en estte proyecto.
 para esto se debe ejecutar
 
-docker build -t shopping .
+`docker build -t shopping . `
 
 una vez generada la imagen se puede verificar con : `docker images` que aparesca la imagen creada con el nombre `shopping`
 
 luego levantar la imagen con el siguiente comando.
 
-`docker run -d -it -p 4200:80 shopping`
+`docker run -d --rm --name shoppingcartangular -p 4200:80 shopping`
 
 en caso de que se requiera levantar en otro puerto, solamente cambiar el valor de `4200` al puerto que se desee usar,
 
