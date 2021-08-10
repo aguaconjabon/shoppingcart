@@ -1,13 +1,19 @@
+Requisitos:
+
+para poder hacer funcionar la aplicacion web mediante docker es necesario tener el backend en funcionamiento.
+
+`https://github.com/aguaconjabon/ms-products`
+
 # Como desplegar esta aplicacion con docker
 
-primero deben generar la imagen docker con el archivo Docker file que se encuentar en estte proyecto.
-para esto se debe ejecutar
+- primero deben generar la imagen docker con el archivo Docker file que se encuentar en estte proyecto.
+  para esto se debe ejecutar
 
 `docker build -t shopping . `
 
 una vez generada la imagen se puede verificar con : `docker images` que aparesca la imagen creada con el nombre `shopping`
 
-luego levantar la imagen con el siguiente comando.
+- luego levantar la imagen con el siguiente comando.
 
 `docker run -d --rm --name shoppingcartangular -p 4200:80 shopping`
 
@@ -15,7 +21,13 @@ en caso de que se requiera levantar en otro puerto, solamente cambiar el valor d
 
 ## Ingresar a aplicacion.
 
-para ingresar a la aplicacion dirigirse a `http://localhost:4200`
+- para ingresar a la aplicacion dirigirse a `http://localhost:4200`
+
+## Levantar la aplicaccion de manera Local
+
+para ejecutar la aplicacion de manera local ejecutar:
+
+`ng serve`
 
 # Shoppingcart
 
