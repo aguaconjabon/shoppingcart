@@ -30,6 +30,20 @@
 
       </ul>
 
+      <ul *ngIf="recomendationMessage" class="list-group">
+
+        <li   class="list-group-item" >
+
+
+          <div *ngIf="shoppingcardProduct.length > 0" class="alert alert-warning" role="alert">
+            {{recomendationMessage}}
+          </div>
+          
+        </li>
+
+      </ul>
+      
+
 
       <ul *ngIf="shoppingcardProduct.length == 0" class="list-group">
 

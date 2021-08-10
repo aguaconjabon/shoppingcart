@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
+import { ShoppingcartService } from '../../service/shoppingCart/shoppingcart.service';
 import { NavigatorHeaderComponent } from './navigator-header.component';
 
 describe('NavigatorHeaderComponent', () => {
@@ -8,9 +10,15 @@ describe('NavigatorHeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavigatorHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [NavigatorHeaderComponent],
+      providers: [
+        {
+          provide: ShoppingcartService,
+          use: ShoppingcartServiceMock,
+        },
+      ],
+      imports: [RouterTestingModule.withRoutes([])],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -23,3 +31,11 @@ describe('NavigatorHeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+export class ShoppingcartServiceMock {
+  public load(): Promise<boolean> {
+    return new Promise(() => {
+      return true;
+    });
+  }
+}

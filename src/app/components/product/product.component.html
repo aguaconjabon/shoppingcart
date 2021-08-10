@@ -1,6 +1,5 @@
 <div class="container">
-
-  <div class="card-columns">
+ <!--  <div class="card-columns"> -->
     <div class="card">
       <img class="card-img-top" src='http://www.lider.cl/catalogo/images/catalogo_no_photo.jpg' alt="Card image cap">
       <div class="card-body">
@@ -9,7 +8,7 @@
         <p class="card-text"><small class="text-muted">precio {{item.price | currency:'CLP' }}</small></p>
         <p class="card-text"><small class="text-muted">Cantidad seleccionados {{ selectedCount }}</small></p>
         <div class="row buttons-container">
-          <div class="col-md-12">
+          <div class="col-md-6">
               <button  type="button text-center" (click)="addProduct()" class="btn btn-primary margin-button">ADD al carrito</button> 
               <button type="button text-center" class="btn btn-info margin-button">Comprar</button>
               <button  *ngIf="selectedCount" type="button text-center" (click)="deleteProduct()" class="btn btn-danger margin-button">remover un elemento</button> 
@@ -18,5 +17,5 @@
       </div>
       </div>
     </div>
-  </div>
+ <!--  </div> -->
   </div>

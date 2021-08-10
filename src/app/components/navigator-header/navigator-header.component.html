@@ -1,7 +1,10 @@
 <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a (click)="goHome()">Inicio</a></li>
-    <li role="presentation"><a>Productos seleccionados {{productCount}}</a></li>
-    <li role="presentation"><a (click)="goShoppingCart()">Carrito</a></li>
-    <li role="presentation"><a  (click)="clearShoppingCart()">Limpiar Carrito</a></li>
-    <li role="presentation"><a >Monto total a pagar: {{totalAmmout | currency:'CLP' }}</a></li>
+    <li role="presentation" ><a class="glyphicon glyphicon-home" (click)="goHome()">  Inicio</a></li>
+    <li role="presentation"><a class="glyphicon glyphicon-shopping-cart"  (click)="goShoppingCart()"> Carrito</a></li>
+    <li role="presentation"><a class="glyphicon glyphicon-trash" (click)="clearShoppingCart()">  Limpiar Carrito</a></li>
+    <li role="presentation"><a>Productos seleccionados  <strong>{{productCount}}</strong></a></li>
+    <li role="presentation color"><a >Total a pagar Sin descuentos Aplicados: <strong>{{totalAmmout | currency:'CLP' }}</strong></a></li>
+
   </ul>
+
+  

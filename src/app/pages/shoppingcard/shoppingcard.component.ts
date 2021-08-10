@@ -19,9 +19,10 @@ export class ShoppingcardComponent implements OnInit {
   shoppingcardProduct: ShoppingcardModel[] = [];
   totalAmmount = 0;
   applyDescount: DiscountModel[] = [];
-  disccountSelecte: DiscountModel;
+  disccountSelected: DiscountModel;
   messageDiscount: string;
   discountApply = 0;
+  recomendationMessage: string;
 
   constructor(
     private shoppingcartService: ShoppingcartService,
@@ -128,46 +129,108 @@ export class ShoppingcardComponent implements OnInit {
     this.messageDiscount = '';
     let totalAmmoutForBrand = 0;
 
+    console.table(this.applyDescount);
+
     this.applyDescount = this.applyDescount.sort(
       (a, b) => b.discount - a.discount
     );
 
-    this.disccountSelecte = this.applyDescount[0]
+    this.disccountSelected = this.applyDescount[0]
       ? this.applyDescount[0]
       : null;
 
-    if (this.disccountSelecte) {
+    let discountForBrand = this.getDiscountForBrand(this.applyDescount);
+
+    if (this.disccountSelected) {
       const productForDiscount = this.products.filter(
-        (element) => element.brand === this.disccountSelecte.brand
+        (element) => element.brand === this.disccountSelected.brand
       );
 
       productForDiscount.forEach((product) => {
         totalAmmoutForBrand = totalAmmoutForBrand + product.price;
       });
       const ammoutForDiscount =
-        this.disccountSelecte.threshold - totalAmmoutForBrand;
-      if (totalAmmoutForBrand < this.disccountSelecte.threshold) {
+        this.disccountSelected.threshold - totalAmmoutForBrand;
+
+      if (totalAmmoutForBrand < this.disccountSelected.threshold) {
         this.messageDiscount =
           'Te falta $' +
           ammoutForDiscount +
           ' Para obtener un descuento de ' +
-          this.disccountSelecte.discount +
+          this.disccountSelected.discount +
           ' seleccionando productos de la marca ' +
-          this.disccountSelecte.brand;
-      } else if (totalAmmoutForBrand >= this.disccountSelecte.threshold) {
+          this.disccountSelected.brand;
+      } else if (totalAmmoutForBrand >= this.disccountSelected.threshold) {
         this.messageDiscount =
           'Tienes un descuento aplicado de $' +
-          this.disccountSelecte.discount +
+          this.disccountSelected.discount +
           ' de la marca: ' +
-          this.disccountSelecte.brand +
+          this.disccountSelected.brand +
           ' por haber sumado igual o mas de $' +
-          this.disccountSelecte.threshold +
+          this.disccountSelected.threshold +
           ' de dicha marca';
 
-        this.discountApply = this.disccountSelecte.discount;
+        this.discountApply = this.disccountSelected.discount;
       }
 
-      console.log(totalAmmoutForBrand);
+      if (
+        discountForBrand &&
+        totalAmmoutForBrand <= this.disccountSelected.threshold
+      ) {
+        this.messageDiscount =
+          'Tienes un descuento aplicado de $' +
+          discountForBrand.discount +
+          ' de la marca: ' +
+          discountForBrand.brand +
+          ' por haber sumado igual o mas de $' +
+          discountForBrand.threshold +
+          ' de dicha marca';
+
+        this.discountApply = discountForBrand.discount;
+      }
+
+      if (discountForBrand.discount < this.disccountSelected.discount) {
+        this.recomendationMessage =
+          'Te falta  $' +
+          ammoutForDiscount +
+          ' de la Marca:  ' +
+          this.disccountSelected.brand +
+          ' para obtener un mayor descuento  de $' +
+          this.disccountSelected.discount;
+      }
     }
+  }
+
+  getDiscountForBrand(applyDescount: DiscountModel[]): DiscountModel {
+    let totalAmmout = 0;
+    let priceForBrandAux: DiscountModel;
+    let priceForBrand: DiscountModel;
+
+    applyDescount.forEach((brandData) => {
+      totalAmmout = 0;
+
+      this.products.forEach((product) => {
+        if (brandData.brand === product.brand) {
+          totalAmmout = product.price + totalAmmout;
+        }
+
+        if (totalAmmout >= brandData.threshold) {
+          priceForBrandAux = brandData;
+          priceForBrandAux.totalForBrand = totalAmmout;
+        }
+      });
+
+      if (!priceForBrand && priceForBrandAux) {
+        priceForBrand = priceForBrandAux;
+      } else if (
+        priceForBrand &&
+        priceForBrandAux.threshold > priceForBrand.threshold
+      ) {
+        priceForBrand = priceForBrandAux;
+      }
+    });
+
+    console.table(priceForBrand);
+    return priceForBrand;
   }
 }

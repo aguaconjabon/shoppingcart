@@ -1,5 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ShoppingcartService } from '../../service/shoppingCart/shoppingcart.service';
 import { ShoppingcardComponent } from './shoppingcard.component';
 
 describe('ShoppingcardComponent', () => {
@@ -8,9 +10,15 @@ describe('ShoppingcardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShoppingcardComponent ]
-    })
-    .compileComponents();
+      declarations: [ShoppingcardComponent],
+      providers: [
+        {
+          provide: ShoppingcartService,
+          use: ShoppingcartServiceMock,
+        },
+      ],
+      imports: [HttpClientTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -23,3 +31,11 @@ describe('ShoppingcardComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+export class ShoppingcartServiceMock {
+  public load(): Promise<boolean> {
+    return new Promise(() => {
+      return true;
+    });
+  }
+}

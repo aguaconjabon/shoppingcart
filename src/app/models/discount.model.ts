@@ -3,4 +3,5 @@ export interface DiscountModel {
   brand: string;
   discount: number;
   threshold: number;
+  totalForBrand?: number;
 }
